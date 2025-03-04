@@ -1,0 +1,18 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.boardRow {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1px; /* Add some space between rows */
+}
+
+.status {
+  color: blueviolet;
+  font-size: 1.5rem;
+  margin-bottom: 1cm;
+}
