@@ -15,11 +15,20 @@ export default function Game() {
   }
 
   function jumpTo(historicalMove) {
-    setCurrentMove(historicalMove)
+    setCurrentMove(historicalMove);
+  }
+
+  function reset(){
+    setCurrentMove(0);
+    setHistory([Array(9).fill(null)]);
   }
 
   //function handles creating react <li> buttons that take user to previous move
   const moves = history.map((squares, move) => {
+    //skip rendering first component
+    if(move === 0){
+      return null;
+    }
     let description;
     if(move > 0){
       description = "Go to move #" + move;
@@ -35,7 +44,8 @@ export default function Game() {
     <>
       <div className='game'>
         <div className='gameControls'>
-          <button onClick={ () => jumpTo(0) }>Reset</button>
+          <button onClick={ () => reset() }>Reset</button>
+          <button>Save</button>
         </div>
         <div className='gameBoard'>
             <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay}/>

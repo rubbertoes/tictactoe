@@ -14,5 +14,10 @@
 .status {
   color: blueviolet;
   font-size: 1.5rem;
+  margin-bottom: 0.5cm;
+}
+
+.gameControls {
   margin-bottom: 1cm;
+  
 }
