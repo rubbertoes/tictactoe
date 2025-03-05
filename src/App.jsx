@@ -2,26 +2,53 @@ import { useState } from 'react'
 import './App.css'
 
 export default function Game() {
-  
+  const[history, setHistory] = useState( [Array(9).fill(null)] );
+  const [currentMove, setCurrentMove] = useState(0);
+  const xIsNext = currentMove % 2 === 0;
+  const currentSquares = history[currentMove];
+
+  function handlePlay(nextSquares) {
+    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+    setHistory(nextHistory);
+    setCurrentMove(nextHistory.length - 1);
+    !xIsNext;
+  }
+
+  function jumpTo(historicalMove) {
+    setCurrentMove(historicalMove)
+  }
+
+  //function handles creating react <li> buttons that take user to previous move
+  const moves = history.map((squares, move) => {
+    let description;
+    if(move > 0){
+      description = "Go to move #" + move;
+    }
+    return(
+      <li key={move}>
+        <button onClick={ () => jumpTo(move) }>{description}</button>
+      </li>
+    );
+  });
 
   return (
     <>
       <div className='game'>
+        <div className='gameControls'>
+          <button onClick={ () => jumpTo(0) }>Reset</button>
+        </div>
         <div className='gameBoard'>
-            <Board />
+            <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay}/>
         </div>
         <div className='gameInfo'>
-        
+          <ol>{moves}</ol>
         </div>
       </div>
     </>
   );
 }
 
-function Board() {
-
-  let [squares, setSquares] = useState(Array(9).fill(null));
-  let [xIsNext, setXIsNext] = useState(true);
+function Board({ xIsNext, squares, onPlay }) {
 
   //display status
   const winner = calculateWinner(squares);
@@ -45,8 +72,7 @@ function Board() {
      } else{
       nextSquares[i] = 'O';
      }
-     setSquares(nextSquares);
-     setXIsNext(!xIsNext);
+     onPlay(nextSquares);
   }
 
   return(
@@ -98,7 +124,7 @@ function calculateWinner(squares) {
   ]
   for(let i = 0; i < winningLines.length; i++){
     const[a,b,c] = winningLines[i];
-    if(squares[a] == squares[b] && squares[b] == squares[c] && squares[a] == squares[c]){
+    if(squares[a] && squares[a] == squares[b] && squares[b] == squares[c] && squares[a] == squares[c]){
       return squares[a];
     } 
   }
