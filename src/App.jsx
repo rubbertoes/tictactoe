@@ -21,6 +21,7 @@ export default function Game() {
   function reset(){
     setCurrentMove(0);
     setHistory([Array(9).fill(null)]);
+    //setWinner(null);
   }
 
   //function handles creating react <li> buttons that take user to previous move
@@ -46,9 +47,14 @@ export default function Game() {
         <div className='gameControls'>
           <button onClick={ () => reset() }>Reset</button>
           <button>Save</button>
+          <button>Retrive</button>
         </div>
         <div className='gameBoard'>
-            <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay}/>
+            <Board 
+              xIsNext={xIsNext} 
+              squares={currentSquares} 
+              onPlay={handlePlay}
+            />
         </div>
         <div className='gameInfo'>
           <ol>{moves}</ol>
@@ -121,7 +127,7 @@ function Square( {symbol, onSquareClick} ) {
 }
 
 //Helper function that checks if there is a current winner 
-function calculateWinner(squares) {
+function calculateWinner(squares, setWinner) {
   const winningLines = [
     [0,1,2], //hoizontal lines
     [3,4,5],

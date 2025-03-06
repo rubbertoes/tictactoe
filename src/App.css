@@ -19,5 +19,6 @@
 
 .gameControls {
   margin-bottom: 1cm;
-  
+  width: auto;
+  height: auto;
 }
