@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { formatDistanceToNow  } from 'date-fns';
+import { differenceInMilliseconds  } from 'date-fns';
 import './App.css'
 
 export default function Game() {
@@ -25,7 +25,6 @@ export default function Game() {
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
     !xIsNext;
-    console.log(currentMove);
   }
 
   //function let player jump to previous move made 
@@ -38,6 +37,8 @@ export default function Game() {
     setCurrentMove(0);
     setHistory([Array(9).fill(null)]);
     setWinner(null);
+    setStartTime(null);
+    setElapsedTime('');
   }
 
   //function handles creating react <li> buttons that take user to previous move
@@ -62,39 +63,39 @@ export default function Game() {
     const result = calculateWinner(currentSquares);
     if (result) {
       setWinner(result);
-      console.log(result);
     }
   }, [history]);
 
   //function changes startTime state when currentMove state updates the first time in a game 
-  //NOTE NO CONSOLE LOG
   useEffect (()=>{
     if(currentMove === 1 && !startTime){
       setStartTime(new Date());
-      console.log(startTime);
     }
   }, [currentMove]);
 
   //function ends time when game winner state is changed from null 
-  //NOTE somtimes CONSOLE LOG
   useEffect( ()=> {
-    if(winner && startTime){
-      setElapsedTime(formatDistanceToNow(startTime, { includeSeconds: true }));
-      console.log(elapsedTime);
-    }
-  }, [winner]);
+    if (startTime && winner) {
+      const now = new Date();
+      const diff = differenceInMilliseconds(now, startTime);
+      const hours = Math.floor(diff / 3600000);
+      const minutes = Math.floor((diff % 3600000) / 60000);
+      const seconds = Math.floor((diff % 60000) / 1000);
+      const milliseconds = diff % 1000;
 
-  //function resets timer when the game is reset
-  useEffect(() => {
-    if (winner === null) {
-      setStartTime(null);
-      setElapsedTime('');
+      setElapsedTime(`${hours}h ${minutes}m ${seconds}s ${milliseconds}ms`);
     }
   }, [winner]);
 
   //function creates undo feature 
 
-
+  //testing 
+  console.log("Current Move: " + currentMove);
+  console.log("Winner changed to: " + winner);
+  console.log("Start time recorded: " + startTime);
+  console.log("Elapsed Time recorded: " + elapsedTime);
+  //for future testing, try making a new use effect that console logs after
+  //each time the hook changes state of the above
 
   //NOTE: remove the ability to jump to previous moves unless you are in "review mode"
 
