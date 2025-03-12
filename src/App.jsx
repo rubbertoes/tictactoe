@@ -87,15 +87,16 @@ export default function Game() {
     }
   }, [winner]);
 
-  //function creates undo feature 
+  //TODO function creates undo feature 
 
   //testing 
   console.log("Current Move: " + currentMove);
   console.log("Winner changed to: " + winner);
   console.log("Start time recorded: " + startTime);
   console.log("Elapsed Time recorded: " + elapsedTime);
-  //for future testing, try making a new use effect that console logs after
-  //each time the hook changes state of the above
+    //For John:
+    //for future testing, should I try making a new use effect that console logs after
+    //each time the hook changes state of the above?
 
   //NOTE: remove the ability to jump to previous moves unless you are in "review mode"
 
