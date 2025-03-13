@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { differenceInMilliseconds  } from 'date-fns';
 import './App.css'
+import { saveGame } from './firebaseService';
 
 export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
@@ -87,7 +88,17 @@ export default function Game() {
     }
   }, [winner]);
 
-  //TODO function creates undo feature 
+  //TODO create saveGame function that saves 
+    //history state as history
+    //currentMove state as numMoves
+    //winner state as winner
+    //elapsedTime state as elapsedTime
+  //Only allow user to save when elapsedTime != ''
+  function saveGame() {
+    if(elapsedTime != ''){
+
+    }
+  }
 
   //testing 
   console.log("Current Move: " + currentMove);
@@ -105,7 +116,7 @@ export default function Game() {
       <div className='game'>
         <div className='gameControls'>
           <button onClick={() => reset()}>Reset</button>
-          <button>Save</button>
+          <button onClick={() => saveGame()}>Save</button>
           <button>Retrive</button>
         </div>
         <div className='gameBoard'>
