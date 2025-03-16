@@ -94,9 +94,9 @@ export default function Game() {
     //winner state as winner
     //elapsedTime state as elapsedTime
   //Only allow user to save when elapsedTime != ''
-  function saveGame() {
+  function onSave() {
     if(elapsedTime != ''){
-
+      saveGame(history, currentMove, winner, elapsedTime);
     }
   }
 
@@ -105,7 +105,15 @@ export default function Game() {
   console.log("Winner changed to: " + winner);
   console.log("Start time recorded: " + startTime);
   console.log("Elapsed Time recorded: " + elapsedTime);
-    //For John:
+
+ 
+  // console.log('Auth Domain:', import.meta.env.VITE_AUTH_DOMAIN);
+  // console.log('Project ID:', import.meta.env.VITE_PROJECT_ID);
+  // console.log('Storage Bucket:', import.meta.env.VITE_STORAGE_BUCKET);
+  // console.log('Messaging Sender ID:', import.meta.env.VITE_MESSAGING_SENDER_ID);
+  // console.log('App ID:', import.meta.env.VITE_APP_ID);
+  // console.log('Measurement ID:', import.meta.env.VITE_MEASUREMENT_ID);
+  //   //For John:
     //for future testing, should I try making a new use effect that console logs after
     //each time the hook changes state of the above?
 
@@ -116,7 +124,7 @@ export default function Game() {
       <div className='game'>
         <div className='gameControls'>
           <button onClick={() => reset()}>Reset</button>
-          <button onClick={() => saveGame()}>Save</button>
+          <button onClick={() => onSave()}>Save</button>
           <button>Retrive</button>
         </div>
         <div className='gameBoard'>
